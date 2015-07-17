@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import proxy.TorSocks;
+
 public class CWrapperProxy {
 	public static void main(String[] args) throws IOException {
 		@SuppressWarnings("resource")
@@ -41,7 +43,13 @@ public class CWrapperProxy {
 				System.out.println(port);
 
 				try {
-					server = new Socket(address, port);
+					// server = new Socket(address, port);
+					/* 
+					 * TODO:
+					 * Adesso utilizza TOR.
+					 * BISOGNA NEL WRAPPER C ANCORA FARE LA RISOLUZIONE DNS TRAMITE TOR. 
+					 */
+					server = TorSocks.TorSocket(address.getHostAddress(), port);
 				} catch (IOException e) {
 					server.close();
 					continue;

@@ -1,3 +1,4 @@
+package proxy;
 /**
  * Comprende tutte le costanti del protocollo SOCKS5 come da RFC.
  * 
