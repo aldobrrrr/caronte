@@ -5,6 +5,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Rappresenta il gestore di una connesione al server.
@@ -25,6 +28,12 @@ public class ConnectionHandler extends Thread {
 
 	public void run() {
 		try {
+			/*
+			 * dichiaro ed inizializzo la stringa che conterrà i messaggi di
+			 * informazione.
+			 */
+			String message = "";
+
 			/*
 			 * creo il buffer per la risposta verso il client.
 			 */
@@ -78,7 +87,8 @@ public class ConnectionHandler extends Thread {
 				/*
 				 * stampo la riga per informazione.
 				 */
-				System.out.println(line);
+				// System.out.println(line);
+				message += line + "\n";
 
 				/*
 				 * prendo la riga e creo un array di stringhe con due elementi:
@@ -94,14 +104,8 @@ public class ConnectionHandler extends Thread {
 				if (couple.length == 2) {
 					header.put(couple[0].trim(), couple[1].trim());
 				}
-				// header.put("type", couple[0].trim());
-				// System.out.println(line);
+
 			}
-			/*
-			 * Stampo un separatore.
-			 */
-			System.out
-					.println("------------------------------------------------------------------------------------------");
 
 			/*
 			 * ho finito di leggere l'header e quindi resetto il buffer
@@ -113,6 +117,55 @@ public class ConnectionHandler extends Thread {
 			 * prendo l'host al quale il client si vuole connettere.
 			 */
 			String host = header.get("Host") != null ? header.get("Host") : "";
+
+			/*
+			 * se l'host è vuoto...
+			 */
+			if (host.isEmpty()) {
+				/*
+				 * stampo tutto l'header per il debug.
+				 */
+				// System.out
+				// .println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+				message += "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+
+				Iterator<Entry<String, String>> it = header.entrySet()
+						.iterator();
+
+				while (it.hasNext()) {
+					Entry<String, String> entry = it.next();
+					// System.out
+					// .println(entry.getKey() + ": " + entry.getValue());
+					message += entry.getKey() + ": " + entry.getValue() + "\n";
+				}
+
+				// System.out
+				// .println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+				message += "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+			} else {
+				/*
+				 * altrimenti stampo un separatore.
+				 */
+				// System.out
+				// .println("------------------------------------------------------------------------------------------");
+				message += "------------------------------------------------------------------------------------------\n";
+			}
+
+			/*
+			 * stampo il messaggio contenente tutte le stampe precedenti,
+			 * sincronizzandomi con gli altri threads.
+			 */
+			synchronized (System.out) {
+				System.out.println(message);
+			}
+
+			/*
+			 * è inutile che vado avanti, l'ho messo perchè mi ritrovo delle
+			 * connessioni il cui contenuto è vuoto.
+			 */
+			if (host.isEmpty()) {
+				return;
+			}
 
 			/*
 			 * effettuo la connessione attraverso tor all'host letto in
