@@ -7,12 +7,12 @@ package proxy;
  * @author Emanuele Altomare
  */
 public interface Socks5Constants {
+	public final static byte SOCKS_VER_5 = (byte) 0x05;
 	/**
 	 * Comandi utilizzabili nella richiesta.
 	 */
 	public final static byte CMD_CONNECT = (byte) 0x01;
 	public final static byte CMD_BIND = (byte) 0x02;
-
 	public final static byte CMD_UDP_ASSOCIATE = (byte) 0x03;
 
 	/**
