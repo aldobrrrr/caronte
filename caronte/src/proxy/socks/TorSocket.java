@@ -182,21 +182,10 @@ public class TorSocket extends Socket {
 		/* Ritorna la stringa formattata con errore testuale e codice. */
 		return String.format("%s Code:%x", s, (byte) status);
 	}
-
-	@Override
-	public void connect(SocketAddress endpoint) throws IOException {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public void connect(SocketAddress endpoint, int timeout) throws IOException {
-		throw new UnsupportedOperationException();
-	}
-
+	
 	public static void main(String args[]) {
 		try {
-			// Socket socket = TorSocks.TorSocket("digiamici.it", 80);
-			Socket socket = new TorSocket("127.0.0.1", 9051, "digiamici.it", 80);
+			Socket socket = new TorSocket("127.0.0.1", 9051, "canzoni.it", 80);
 			System.out.println(socket.isConnected());
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
