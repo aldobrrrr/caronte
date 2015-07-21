@@ -3,3 +3,5 @@
 /ConnectionHandler.class
 /Socks5Constants.class
 /TorSocks.class
+/proxy/
+/tordns/

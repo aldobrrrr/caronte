@@ -1,7 +1,10 @@
 package proxy;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import tordns.TorDns;
 
 /**
  * Questa classe consente la creazione e l'avvio di Caronte.
@@ -21,6 +24,8 @@ public class CaronteProxyServer {
 		/*
 		 * avvio il server.
 		 */
+		// new TorDns("127.0.0.1", 5353).start();
+
 		System.out.println("Starting proxy on port " + localport);
 		runServer(localport);
 	}
