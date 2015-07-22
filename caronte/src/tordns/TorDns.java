@@ -43,9 +43,7 @@ public class TorDns extends Thread {
 		this.bindPort = bindPort;
 	}
 
-	@SuppressWarnings("resource")
 	public void run() {
-
 		/*
 		 * creo l'oggetto che conterrà l'indirizzo ip sul quale il server dovrà
 		 * mettersi in ascolto.
