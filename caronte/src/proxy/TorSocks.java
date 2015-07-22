@@ -1,4 +1,5 @@
 package proxy;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class TorSocks {
 	/*
 	 * porta del proxy SOCKS5 TOR.
 	 */
-	public static int proxyPort = 9051;
+	public static int proxyPort = 9050;
 
 	/*
 	 * indirizzo del proxy.

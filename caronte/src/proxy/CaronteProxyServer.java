@@ -24,7 +24,7 @@ public class CaronteProxyServer {
 		/*
 		 * avvio il server.
 		 */
-		// new TorDns("127.0.0.1", 5353).start();
+		new TorDns("127.0.0.1", 5353).start();
 
 		System.out.println("Starting proxy on port " + localport);
 		runServer(localport);

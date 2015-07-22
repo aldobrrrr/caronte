@@ -26,9 +26,10 @@ public class TorDns extends Thread {
 
 	/*
 	 * indica la massima dimensione del buffer che ospiterà il pacchetto di
-	 * richiesta.
+	 * richiesta. (la massima dimensione di un messaggio UDP per il protocollo
+	 * DNS)
 	 */
-	private final int BUFF_DIM = 256;
+	private final int BUFF_DIM = 512;
 
 	/**
 	 * Consente di creare il server passandogli l'indirizzo e la porta dove
@@ -43,7 +44,7 @@ public class TorDns extends Thread {
 	}
 
 	@SuppressWarnings("resource")
-	public void start() {
+	public void run() {
 
 		/*
 		 * creo l'oggetto che conterrà l'indirizzo ip sul quale il server dovrà
@@ -94,7 +95,7 @@ public class TorDns extends Thread {
 				 * creo un nuovo thread che dovrà gestire la richiesta appena
 				 * arrivata.
 				 */
-				DnsRequestHandler handler = new DnsRequestHandler(p);
+				DnsRequestHandler handler = new DnsRequestHandler(p, server);
 
 				/*
 				 * faccio partire il thread.
